@@ -11,7 +11,7 @@
 // sudo pacman -S gmp
 //
 // Compile with
-// gcc -o gmp-arm-pi gmp-arm-pi.c -lgmp
+// gcc -o gmp-agm-pi gmp-agm-pi.c -lgmp
 //
 
 #include <stdio.h>
