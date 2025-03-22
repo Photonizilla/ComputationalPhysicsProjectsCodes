@@ -20,7 +20,7 @@
 #include <gmp.h>
 #include <time.h>
 
-#define DIGITS 100000
+#define DIGITS 100000000
 #define DIGITS_PER_ITER  14.1816474627254776555
 #define A 13591409
 #define B 545140134
@@ -108,8 +108,9 @@ int main(int argc, const char * argv[]) {
     mpf_add(res_denominator, res_denominator, R);
     mpf_init(result);
     mpf_div(result, res_numerator, res_denominator);
+    
     clock_t stop = clock();
-    printf("Time:\n%fs\n", (stop - start) / (float)CLOCKS_PER_SEC);
+    printf("Time:(s)\n%f\n", (stop - start) / (float)CLOCKS_PER_SEC);
     
     freopen("gmp-chudnovsky-pi.txt", "w", stdout);
     gmp_printf("%.*Ff\n", DIGITS, result);
@@ -120,6 +121,10 @@ int main(int argc, const char * argv[]) {
         mpz_clear(RStack[i]);
     }
     mpf_clears(result, res_numerator, res_denominator, Q, R, NULL);
+    
+    free(PStack);
+    free(QStack);
+    free(RStack);
     
     return 0;
 }
