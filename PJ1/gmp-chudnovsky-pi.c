@@ -32,7 +32,7 @@ mpz_t* QStack;
 mpz_t* RStack;
 unsigned long top;
 
-void binarySplitting(unsigned long a, unsigned long b, int level) {
+void binarySplitting(unsigned long a, unsigned long b) {
     if (b == a + 1) {
         mpz_set_ui(PStack[top], (2 * a - 1));
         mpz_mul_ui(PStack[top], PStack[top], (6 * a - 5));
@@ -50,9 +50,9 @@ void binarySplitting(unsigned long a, unsigned long b, int level) {
         return;
     }
     unsigned long mid = a + (b-a) * 0.5224;
-    binarySplitting(a, mid, level + 1);
+    binarySplitting(a, mid);
     top++;
-    binarySplitting(mid, b, level + 1);
+    binarySplitting(mid, b);
     top--;
     
     mpz_mul(RStack[top], RStack[top], QStack[top + 1]);
@@ -91,7 +91,7 @@ int main(int argc, const char * argv[]) {
         mpz_set_ui(QStack[top], 1);
         mpz_set_ui(RStack[top], 0);
     } else {
-        binarySplitting(1, terms, 0);
+        binarySplitting(1, terms);
     }
     
     mpf_set_default_prec(precision);
