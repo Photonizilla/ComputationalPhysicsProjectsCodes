@@ -20,7 +20,7 @@
 #include <gmp.h>
 #include <time.h>
 
-#define DIGITS 100000000
+#define DIGITS 100000
 #define DIGITS_PER_ITER  14.1816474627254776555
 #define A 13591409
 #define B 545140134
