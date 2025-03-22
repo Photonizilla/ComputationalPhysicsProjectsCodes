@@ -55,11 +55,11 @@ void binarySplitting(unsigned long a, unsigned long b, int level) {
     binarySplitting(mid, b, level + 1);
     top--;
     
-    mpz_mul(PStack[top], PStack[top], PStack[top + 1]);
-    mpz_mul(QStack[top], QStack[top], QStack[top + 1]);
     mpz_mul(RStack[top], RStack[top], QStack[top + 1]);
     mpz_mul(RStack[top + 1], RStack[top + 1], PStack[top]);
-    mpz_add(RStack[top], RStack[top], RStack[top + 1]);
+    mpz_add(RStack[top], RStack[top], RStack[top + 1]);             // R(a, b) = R(a, mid) Q(mid, b) + P(a, mid) R(mid, b)
+    mpz_mul(PStack[top], PStack[top], PStack[top + 1]);             // P(a, b) = P(a, mid) P(mid, b)
+    mpz_mul(QStack[top], QStack[top], QStack[top + 1]);             // Q(a, b) = Q(a, mid) Q(mid, b)
 }
 
 int main(int argc, const char * argv[]) {
@@ -109,7 +109,7 @@ int main(int argc, const char * argv[]) {
     mpf_init(result);
     mpf_div(result, res_numerator, res_denominator);
     clock_t stop = clock();
-    printf("Time: %fs\n", (stop - start) / (float)CLOCKS_PER_SEC);
+    printf("Time:\n%fs\n", (stop - start) / (float)CLOCKS_PER_SEC);
     
     freopen("gmp-chudnovsky-pi.txt", "w", stdout);
     gmp_printf("%.*Ff\n", DIGITS, result);
